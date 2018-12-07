@@ -1,0 +1,35 @@
+buildscript {
+    repositories {
+        jcenter()
+
+    }
+    dependencies {
+        classpath 'com.github.jengelman.gradle.plugins:shadow:4.0.3'
+    }
+}
+
+
+apply plugin: 'com.github.johnrengelman.shadow'
+
+apply plugin: 'java'
+
+dependencies {
+    runtime 'com.ibm:db2jcc4:4.13.80'
+}
+
+repositories {
+    mavenLocal()
+}
+
+
+shadowJar {
+    mergeServiceFiles()
+    baseName = 'db2-connection-test'
+    classifier = null
+    version = null
+    manifest {
+        attributes(
+                'Main-Class': 'de.robinschuerer.db2tester.Test'
+        )
+    }
+}
